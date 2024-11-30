@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    //MARK: Task manager properties
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        Home()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.white)
+            .preferredColorScheme(.light)
     }
 }
 
