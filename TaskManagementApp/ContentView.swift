@@ -11,10 +11,24 @@ struct ContentView: View {
     //MARK: Task manager properties
     
     var body: some View {
-        Home()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.white)
-            .preferredColorScheme(.light)
+        TabView {
+            Home()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.white)
+                .preferredColorScheme(.light)
+                .tabItem {
+                    Label("Tasks", systemImage: "timer")
+                }
+                .tag(0)
+            Text("Routines")
+                .tabItem {
+                    Label("Routines", systemImage: "gear")
+                }.tag(1)
+            Text("Settings")
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }.tag(2)
+        }
     }
 }
 
