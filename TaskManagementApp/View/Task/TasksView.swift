@@ -19,7 +19,7 @@ struct TasksView: View {
         let endOfDate = calendar.date(byAdding: .day, value: 1, to: startOfDate)!
         let predicate = #Predicate<Task> {
 //            return Calendar.current.isDate($0.creationDate, inSameDayAs: currentDate.wrappedValue)
-            return $0.creationDate >= startOfDate && $0.creationDate < endOfDate
+            return $0.creationDate >= startOfDate && $0.creationDate < endOfDate && $0.routine == nil
         }
         //Sorting
         let sortDescriptor = [
@@ -33,7 +33,7 @@ struct TasksView: View {
         //MARK: Task View
             VStack(alignment: .leading, spacing: 35) {
                 ForEach(tasks) { task in
-                    TaskViewRow(task: task)
+                    TaskRowView(task: task)
                         .background(alignment: .leading) {
                             if tasks.last?.id != task.id {
                                 Rectangle()

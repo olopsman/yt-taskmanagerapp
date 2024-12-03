@@ -14,6 +14,7 @@ class Task: Identifiable {
     var creationDate: Date
     var isCompleted: Bool
     var tint: String
+    var routine: Routine?
     
     init(id: UUID = .init(), taskTitle: String, creationDate: Date = .init(), isCompleted: Bool = false, tint: String) {
         self.id = id

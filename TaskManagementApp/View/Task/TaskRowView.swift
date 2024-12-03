@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskViewRow: View {
+struct TaskRowView: View {
     @Bindable var task: Task
     @Environment(\.modelContext) private var context
     var body: some View {

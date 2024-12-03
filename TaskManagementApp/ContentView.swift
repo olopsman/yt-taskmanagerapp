@@ -12,7 +12,11 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            Home()
+            RoutineHomeView()
+                .tabItem {
+                    Label("Routines", systemImage: "gear")
+                }.tag(1)
+            TaskHomeView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.white)
                 .preferredColorScheme(.light)
@@ -20,10 +24,7 @@ struct ContentView: View {
                     Label("Tasks", systemImage: "timer")
                 }
                 .tag(0)
-            Text("Routines")
-                .tabItem {
-                    Label("Routines", systemImage: "gear")
-                }.tag(1)
+     
             Text("Settings")
                 .tabItem {
                     Label("Settings", systemImage: "gear")
