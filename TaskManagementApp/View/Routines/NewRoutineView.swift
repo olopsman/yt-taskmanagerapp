@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewRoutineView: View {
+    @State private var selectedTab = 0
     //MARK: View properties
     @Environment(\.dismiss) private var dismiss
     //MARK: Model context for saving data
@@ -16,7 +17,7 @@ struct NewRoutineView: View {
     @State private var routineDate: Date = .init()
     @State private var routineColor: String = "TaskColor1"
     var body: some View {
-        NavigationView {
+        TabView(selection : $selectedTab) {
             VStack(alignment: .leading, spacing: 15) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Routine Title")
@@ -87,13 +88,16 @@ struct NewRoutineView: View {
                     do {
                         context.insert(routine)
                         try context.save()
-                        dismiss()
                         
                     } catch {
                         print(error.localizedDescription)
                     }
+                    withAnimation {
+                        selectedTab = 1
+                        UIScrollView.appearance().isScrollEnabled = true
+                    }
                 }, label: {
-                    Text("Create Task")
+                    Text("Continue")
                         .font(.title3)
                         .fontWeight(.semibold)
                         .textScale(.secondary)
@@ -106,6 +110,7 @@ struct NewRoutineView: View {
                 .opacity(routineTitle == "" ? 0.5 : 1)
                 
             }
+            .tag(0)
             .padding(15)
             .navigationTitle(Text("New Routine"))
             .navigationBarTitleDisplayMode(.inline)
@@ -121,7 +126,13 @@ struct NewRoutineView: View {
                 }
                
             }
+            
+            Text("Next Screen")
+                .tag(1)
         }
+            .onAppear {
+                  UIScrollView.appearance().isScrollEnabled = false
+            }
     }
 }
 
