@@ -15,7 +15,7 @@ struct RoutineRowView: View {
            
             
             VStackLayout(alignment: .leading, spacing: 8) {
-                Text(routine.routineTitle)
+                Text(routine.title)
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)
                     

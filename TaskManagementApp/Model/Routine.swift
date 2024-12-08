@@ -10,14 +10,15 @@ import SwiftData
 @Model
 class Routine: Identifiable {
     var id: UUID
-    var routineTitle: String
+    var title: String
     var creationDate: Date
     var tint: String
+    var tasks: [Task] = []
  
     
-    init(id: UUID = .init(), routineTitle: String, creationDate: Date = .init(),  tint: String) {
+    init(id: UUID = .init(), title: String, creationDate: Date = .init(),  tint: String) {
         self.id = id
-        self.routineTitle = routineTitle
+        self.title = title
         self.creationDate = creationDate
         self.tint = tint
     }
@@ -31,11 +32,3 @@ class Routine: Identifiable {
         }
     }
 }
-
-
-//extension Date {
-//    static func updateHour(_ value: Int) -> Date {
-//        let calendar = Calendar.current
-//        return calendar.date(byAdding: .hour, value: value, to: .init()) ?? .init()
-//    }
-//}
