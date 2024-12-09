@@ -11,6 +11,7 @@ struct RoutineEditView: View {
     @Environment(\.dismiss) private var dismiss
     @Bindable var routine: Routine
     @State private var scheduledDate = Date()
+    @State private var task: String = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             VStack(alignment: .leading, spacing: 8) {
@@ -39,7 +40,23 @@ struct RoutineEditView: View {
             
             //MARK: Add subtasks
             VStack {
-                Text("Add tasks")
+                
+                HStack{
+                    TextField("Add tasks", text: $task)
+                    Button(action: {
+                        routine.tasks.append(Task(taskTitle: task, tint: "TaskColor1"))
+                        task = ""
+                        
+                    }){
+                        Label("", systemImage: "plus")
+                    }
+                    .disabled(task == "")
+                }
+                
+                ForEach(routine.tasks) { tsk in
+                    Text("\(tsk.taskTitle)")
+                }
+                
             }
             
             Spacer(minLength: 0)
