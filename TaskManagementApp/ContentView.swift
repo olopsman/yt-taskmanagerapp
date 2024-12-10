@@ -12,10 +12,6 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            RoutineHomeView()
-                .tabItem {
-                    Label("Routines", systemImage: "gear")
-                }.tag(1)
             TaskHomeView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.white)
@@ -23,9 +19,12 @@ struct ContentView: View {
                 .tabItem {
                     Label("Tasks", systemImage: "timer")
                 }
-                .tag(0)
-     
-            Text("Settings")
+            .tag(0)
+            RoutineHomeView()
+                .tabItem {
+                    Label("Routines", systemImage: "gear")
+                }.tag(1)
+            SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }.tag(2)

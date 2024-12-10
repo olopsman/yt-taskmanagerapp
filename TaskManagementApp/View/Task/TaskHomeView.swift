@@ -17,19 +17,34 @@ struct TaskHomeView: View {
     //MARK: Animation namespace
     @Namespace private var animation
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HeaderView()
-            
-            ScrollView(.vertical) {
-                VStack {
-                    //Tasks View
-                    TasksView(currentDate: $currentDate)
+        NavigationStack{
+            VStack(alignment: .leading, spacing: 0) {
+                HeaderView()
+                
+                ScrollView(.vertical) {
+                    VStack {
+                        //Tasks View
+                        TasksView(currentDate: $currentDate)
+                    }
+                    .hSpacing(.center)
+                    .vSpacing(.center)
+                }.scrollIndicators(.hidden)
+            }
+            .vSpacing(.top)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(Text("Ideal Day"))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {}, label: {
+                        Image(.paulo)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 45, height: 45)
+                            .clipShape(.circle)
+                    })
                 }
-                .hSpacing(.center)
-                .vSpacing(.center)
-            }.scrollIndicators(.hidden)
+            }
         }
-        .vSpacing(.top)
         //MARK: Creating new task
         .overlay(alignment: .bottomTrailing) {
             Button(action: {
@@ -101,15 +116,15 @@ struct TaskHomeView: View {
             
         }
         .hSpacing(.leading)
-        .overlay(alignment: .topTrailing, content: {
-            Button(action: {}, label: {
-                Image(.paulo)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 45, height: 45)
-                    .clipShape(.circle)
-            })
-        })
+//        .overlay(alignment: .topTrailing, content: {
+//            Button(action: {}, label: {
+//                Image(.paulo)
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .frame(width: 45, height: 45)
+//                    .clipShape(.circle)
+//            })
+//        })
         .padding(15) //used for pagination offset
         .background(.gray.opacity(0.1))
         .onChange(of: currentWeeekIndex, initial: false) { oldValue, newValue in

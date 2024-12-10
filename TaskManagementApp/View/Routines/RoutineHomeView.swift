@@ -16,42 +16,39 @@ struct RoutineHomeView: View {
     @State private var routineToEdit: Routine?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ScrollView(.vertical) {
-                VStack {
-                    //Routine View
-                    VStack(alignment: .leading, spacing: 35) {
-                        ForEach(routines) { routine in
-                            RoutineRowView(routine: routine)
-                                .onTapGesture {
-                                    routineToEdit = routine
-                                }
-                                .background(alignment: .leading) {
-                                    if routines.last?.id != routine.id {
-                                        Rectangle()
-                                            .frame(width: 1)
-                                            .offset(x: 8)
-                                            .padding(.bottom, -35)
+        NavigationStack{
+            VStack(alignment: .leading, spacing: 0) {
+                ScrollView(.vertical) {
+                    VStack {
+                        //Routine View
+                        VStack(alignment: .leading, spacing: 35) {
+                            ForEach(routines) { routine in
+                                RoutineRowView(routine: routine)
+                                    .onTapGesture {
+                                        routineToEdit = routine
                                     }
-                                }
+                                    
+                            }
+                        }
+                        .padding([.vertical, .leading], 15)
+                        .padding(.top, 15)
+                        .overlay {
+                            if routines.isEmpty {
+                                Text("No routines found")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                                    .frame(width: 150)
+                            }
                         }
                     }
-                    .padding([.vertical, .leading], 15)
-                    .padding(.top, 15)
-                    .overlay {
-                        if routines.isEmpty {
-                            Text("No routines found")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                                .frame(width: 150)
-                        }
-                    }
-                }
-                .hSpacing(.center)
-                .vSpacing(.center)
-            }.scrollIndicators(.hidden)
+                    .hSpacing(.center)
+                    .vSpacing(.center)
+                }.scrollIndicators(.hidden)
+            }
+            .vSpacing(.top)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(Text("Routines"))
         }
-        .vSpacing(.top)
         //MARK: Creating new routine
         .overlay(alignment: .bottomTrailing) {
             Button(action: {
@@ -83,5 +80,5 @@ struct RoutineHomeView: View {
 }
 
 #Preview {
-    ContentView()
+    RoutineHomeView()
 }
