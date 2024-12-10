@@ -32,3 +32,5 @@ class Routine: Identifiable {
         }
     }
 }
+
+var routineSample: Routine = Routine.init(title: "test", tint: "TaskColor1")

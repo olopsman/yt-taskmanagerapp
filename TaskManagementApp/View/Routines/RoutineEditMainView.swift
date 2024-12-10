@@ -35,5 +35,5 @@ struct RoutineEditMainView: View {
 }
 
 #Preview {
-    ContentView()
+    RoutineEditMainView(routine: routineSample)
 }
