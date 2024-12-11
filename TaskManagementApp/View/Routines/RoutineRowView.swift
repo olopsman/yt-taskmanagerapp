@@ -18,10 +18,11 @@ struct RoutineRowView: View {
                 Text(routine.title)
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)
-                    
-                Label(routine.creationDate.format("hh:mm a"), systemImage: "clock")
-                    .font(.caption)
-                    .foregroundStyle(.black)
+                if routine.tasks.count > 0 {
+                    Label("\(routine.tasks.count) tasks", systemImage: "clock")
+                        .font(.caption)
+                        .foregroundStyle(.black)
+                }
             }
             .padding(15)
             .hSpacing(.leading)

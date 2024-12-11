@@ -38,8 +38,8 @@ struct TasksView: View {
                             if tasks.last?.id != task.id {
                                 Rectangle()
                                     .frame(width: 1)
-                                    .offset(x: 8)
-                                    .padding(.bottom, -35)
+                                    .offset(x: 20, y:15)
+                                    .padding(.bottom, -15)
                             }
                         }
                 }
@@ -48,10 +48,11 @@ struct TasksView: View {
             .padding(.top, 15)
             .overlay {
                 if tasks.isEmpty {
-                    Text("No tasks found")
+                    Text("No agenda yet for this day")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                        .frame(width: 150)
+                        .padding([.top])
+                        .frame(width: 250)
                 }
             }
     }

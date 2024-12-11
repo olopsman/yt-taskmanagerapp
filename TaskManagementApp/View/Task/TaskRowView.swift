@@ -11,37 +11,21 @@ struct TaskRowView: View {
     @Bindable var task: Task
     @Environment(\.modelContext) private var context
     var body: some View {
-        HStack(alignment: .top, spacing: 15) {
-            Circle()
-                .fill(indicatorColor)
-                .frame(width: 10, height: 10)
-                .padding(4)
-                .background(.white.shadow(.drop(color: .black.opacity(0.3), radius: 3)), in: .circle)
-            //make button visible and tapable
-                .overlay {
-                    Circle()
-                        .foregroundStyle(.clear)
-                        .contentShape(.circle)
-                        .frame(width: 50, height: 50)
-                        .onTapGesture {
-                            withAnimation(.snappy) {
-                                task.isCompleted.toggle()
-                            }
-                        }
-                }
-            
+        HStack(alignment: .top, spacing: 10) {
+
+            Text(task.creationDate.format("hh:mm a"))
+                .font(.caption)
+                .foregroundStyle(.black)
             VStackLayout(alignment: .leading, spacing: 8) {
                 Text(task.taskTitle)
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)
                     
-                Label(task.creationDate.format("hh:mm a"), systemImage: "clock")
-                    .font(.caption)
-                    .foregroundStyle(.black)
+               
             }
             .padding(15)
             .hSpacing(.leading)
-            .background(task.tintColor, in: .rect(topLeadingRadius: 15, bottomLeadingRadius: 15))
+            .background(task.tintColor, in: .rect(cornerRadius: 10))
             .strikethrough(task.isCompleted, pattern: .solid, color: .gray)
             .contentShape(.contextMenuPreview, .rect(cornerRadius: 15))
             .contextMenu {
@@ -52,6 +36,23 @@ struct TaskRowView: View {
                 }
             }
             .offset(y: -8)
+                        Circle()
+                            .fill(indicatorColor)
+                            .frame(width: 10, height: 10)
+                            .padding(4)
+                            .background(.white.shadow(.drop(color: .black.opacity(0.3), radius: 3)), in: .circle)
+                        //make button visible and tapable
+                            .overlay {
+                                Circle()
+                                    .foregroundStyle(.clear)
+                                    .contentShape(.circle)
+                                    .frame(width: 50, height: 50)
+                                    .onTapGesture {
+                                        withAnimation(.snappy) {
+                                            task.isCompleted.toggle()
+                                        }
+                                    }
+                            }.padding(.horizontal)
         }
         .hSpacing(.leading)
     }

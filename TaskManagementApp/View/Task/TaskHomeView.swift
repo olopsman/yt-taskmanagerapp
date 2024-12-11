@@ -33,17 +33,18 @@ struct TaskHomeView: View {
             .vSpacing(.top)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(Text("Ideal Day"))
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {}, label: {
-                        Image(.paulo)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 45, height: 45)
-                            .clipShape(.circle)
-                    })
-                }
-            }
+            //TODO: unambigoius use of toolbar
+//            .toolbar {
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    Button(action: {}, label: {
+//                        Image(.paulo)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                            .frame(width: 45, height: 45)
+//                            .clipShape(.circle)
+//                    })
+//                }
+//            }
         }
         //MARK: Creating new task
         .overlay(alignment: .bottomTrailing) {
@@ -76,7 +77,7 @@ struct TaskHomeView: View {
         })
         .sheet(isPresented: $createNewTask, content: {
             NewTaskView()
-                .presentationDetents([.height(300)])
+                .presentationDetents([.medium])
                 .interactiveDismissDisabled()
                 .presentationCornerRadius(30)
                

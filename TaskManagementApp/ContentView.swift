@@ -17,7 +17,7 @@ struct ContentView: View {
                 .background(.white)
                 .preferredColorScheme(.light)
                 .tabItem {
-                    Label("Tasks", systemImage: "timer")
+                    Label("Ideal Day", systemImage: "timer")
                 }
             .tag(0)
             RoutineHomeView()
