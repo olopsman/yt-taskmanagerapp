@@ -131,6 +131,17 @@ struct NewTaskView: View {
                             Spacer()
                             Button(action: {
                                 print("add the routine subtasks as part of the current date")
+                                let newTasks = routine.tasks.map { task in
+                                    Task(id: .init(), taskTitle: task.taskTitle, creationDate: taskDate,
+                                         isCompleted: task.isCompleted, tint: task.tint)
+                                }
+                                
+                                for obj in newTasks {
+                                    context.insert(obj)
+                                }
+                                
+                                dismiss()
+                                
                             }) {
                                 Label("Add", systemImage: "plus")
                             }
