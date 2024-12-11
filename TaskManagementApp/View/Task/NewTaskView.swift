@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewTaskView: View {
     //MARK: View properties
@@ -13,13 +14,30 @@ struct NewTaskView: View {
     //MARK: Model context for saving data
     @Environment(\.modelContext) private var context
     @State private var taskTitle: String = ""
-    @State private var taskDate: Date = .init()
+//    @State private var taskDate: Date = .init()
     @State private var taskColor: String = "TaskColor1"
     @State private var segmentControl = SegmentControlType.tasks
+    @Binding var taskDate: Date
     private let segmentControlTypes = SegmentControlType.allCases
+    @Query private var routines: [Routine]
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 15) {
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    DatePicker("Date",selection: $taskDate, displayedComponents: .date)
+                        .datePickerStyle(.compact)
+                        .scaleEffect(0.9, anchor: .leading)
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+
+                }
+                        
+                    
+               
+
+                
+                
                 Picker(selection: $segmentControl, label: Text("Filter")) {
                     ForEach(segmentControlTypes, id:\.self) { segment in
                         Text(segment.rawValue)
@@ -27,6 +45,8 @@ struct NewTaskView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                
+                
                 
                 if segmentControl.rawValue == "New Task" {
                     
@@ -43,19 +63,7 @@ struct NewTaskView: View {
                     .padding(.top, 5)
                     
                     HStack {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Task Date")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                            
-                            
-                            DatePicker("", selection: $taskDate)
-                                .datePickerStyle(.compact)
-                                .scaleEffect(0.9, anchor: .leading)
-                        }
-                        .padding(.top, 5)
-                        //Giving some space for tapping the colors
-                        .padding(.trailing, -15)
+                        
                         
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Task Color")
@@ -117,12 +125,25 @@ struct NewTaskView: View {
                     .disabled(taskTitle == "")
                     .opacity(taskTitle == "" ? 0.5 : 1)
                 } else {
-                    Text("Add routines")
+                    ForEach(routines) { routine in
+                        HStack{
+                            Text("\(routine.title)")
+                            Spacer()
+                            Button(action: {
+                                print("add the routine subtasks as part of the current date")
+                            }) {
+                                Label("Add", systemImage: "plus")
+                            }
+                        }
+                            
+                        
+                    }
+                    Spacer()
                 }
                 
             }
             .padding(15)
-            .navigationTitle(Text("Add Task"))
+            .navigationTitle(Text("Add Task & Routine"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -141,6 +162,6 @@ struct NewTaskView: View {
 }
 
 #Preview {
-    NewTaskView()
+    NewTaskView(taskDate:  .constant(Date()))
         .vSpacing(.bottom)
 }
