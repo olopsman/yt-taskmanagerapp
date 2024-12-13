@@ -14,10 +14,14 @@ struct NewTaskView: View {
     //MARK: Model context for saving data
     @Environment(\.modelContext) private var context
     @State private var taskTitle: String = ""
-//    @State private var taskDate: Date = .init()
     @State private var taskColor: String = "TaskColor1"
     @State private var segmentControl = SegmentControlType.tasks
     @Binding var taskDate: Date
+    @State private var taskDuration: Int = 15
+    @State private var taskTime: Date = .init()
+    @State private var date = Date()
+    @State private var time = Date()
+
     private let segmentControlTypes = SegmentControlType.allCases
     @Query private var routines: [Routine]
     var body: some View {
@@ -25,26 +29,41 @@ struct NewTaskView: View {
             VStack(alignment: .leading, spacing: 15) {
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    DatePicker("Date",selection: $taskDate, displayedComponents: .date)
-                        .datePickerStyle(.compact)
-                        .scaleEffect(0.9, anchor: .leading)
-                        .font(.caption)
-                        .foregroundStyle(.gray)
+                    HStack{
+                        Text("When")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                        DatePicker("",selection: $taskDate, displayedComponents: .date)
+                            .datePickerStyle(.compact)
+                            .scaleEffect(0.9, anchor: .leading)
+                            
+                    }
 
                 }
+                
+                DatePicker("",selection: $date, displayedComponents: .date)
+                                .datePickerStyle(.compact)
+                DatePicker("",selection: $time, displayedComponents: .hourAndMinute)
+                                .datePickerStyle(.compact)
+                               
                         
                     
                
 
                 
                 
-                Picker(selection: $segmentControl, label: Text("Filter")) {
-                    ForEach(segmentControlTypes, id:\.self) { segment in
-                        Text(segment.rawValue)
-                            .tag(segment)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Type")
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                    Picker(selection: $segmentControl, label: Text("Filter")) {
+                        ForEach(segmentControlTypes, id:\.self) { segment in
+                            Text(segment.rawValue)
+                                .tag(segment)
+                        }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
-                .pickerStyle(SegmentedPickerStyle())
                 
                 
                 
@@ -55,12 +74,25 @@ struct NewTaskView: View {
                             .font(.caption)
                             .foregroundStyle(.gray)
                         
-                        TextField("Go for a walk!", text: $taskTitle)
+                        TextField("Go for a run!", text: $taskTitle)
                             .padding(.vertical, 12)
                             .padding(.horizontal, 15)
                             .background(.white.shadow(.drop(color: .black.opacity(0.25), radius: 2)), in: .rect(cornerRadius: 10))
                     }
                     .padding(.top, 5)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("How long")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                        Picker(selection: $taskDuration, label: Text("Filter")) {
+                            ForEach(taskDurations, id:\.self) { tsk in
+                                    Text("\(tsk)")
+                                    .tag(tsk)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
                     
                     HStack {
                         
@@ -103,7 +135,7 @@ struct NewTaskView: View {
                     Button(action: {
                         print("save")
                         //MARK: Saving the task
-                        let task = Task(taskTitle: taskTitle, creationDate: taskDate, tint: taskColor)
+                        let task = Task(taskTitle: taskTitle, creationDate: taskDate, tint: taskColor, duration: Int(taskDuration))
                         do {
                             context.insert(task)
                             try context.save()

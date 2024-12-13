@@ -15,13 +15,15 @@ class Task: Identifiable {
     var isCompleted: Bool
     var tint: String
     var routine: Routine?
+    var duration: Int
     
-    init(id: UUID = .init(), taskTitle: String, creationDate: Date = .init(), isCompleted: Bool = false, tint: String) {
+    init(id: UUID = .init(), taskTitle: String, creationDate: Date = .init(), isCompleted: Bool = false, tint: String, duration: Int = 0) {
         self.id = id
         self.taskTitle = taskTitle
         self.creationDate = creationDate
         self.isCompleted = isCompleted
         self.tint = tint
+        self.duration = duration
     }
     
     var tintColor: Color {

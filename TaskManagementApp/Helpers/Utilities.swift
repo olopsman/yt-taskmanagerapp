@@ -7,5 +7,7 @@
 
 enum SegmentControlType: String, CaseIterable {
     case tasks = "New Task"
-    case routines = "Routines"
+    case routines = "Add Routines"
 }
+
+let taskDurations: [Int] = [5,10,15,25,30,45,60];

@@ -20,8 +20,9 @@ struct TaskRowView: View {
                 Text(task.taskTitle)
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)
-                    
-               
+                Text("Duration: \(task.duration) mins")
+                    .font(.caption)
+                    .foregroundStyle(.black)
             }
             .padding(15)
             .hSpacing(.leading)
