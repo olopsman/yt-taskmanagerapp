@@ -20,7 +20,7 @@ struct NewTaskView: View {
     @State private var taskDuration: Int = 15
     @State private var taskTime: Date = .init()
     @State private var date = Date()
-    @State private var time = Date()
+    @State private var time = Date(timeIntervalSinceReferenceDate: (Date.timeIntervalSinceReferenceDate/300).rounded(.toNearestOrEven) * 300)
 
     private let segmentControlTypes = SegmentControlType.allCases
     @Query private var routines: [Routine]
@@ -28,23 +28,27 @@ struct NewTaskView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 15) {
                 
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack{
-                        Text("When")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
-                        DatePicker("",selection: $taskDate, displayedComponents: .date)
-                            .datePickerStyle(.compact)
-                            .scaleEffect(0.9, anchor: .leading)
-                            
-                    }
-
-                }
+//                VStack(alignment: .leading, spacing: 8) {
+//                    HStack{
+//                        Text("When")
+//                            .font(.caption)
+//                            .foregroundStyle(.gray)
+//                        DatePicker("",selection: $taskDate, displayedComponents: .date)
+//                            .datePickerStyle(.compact)
+//                            .scaleEffect(0.9, anchor: .leading)
+//                            
+//                    }
+//
+//                }
                 
-                DatePicker("",selection: $date, displayedComponents: .date)
-                                .datePickerStyle(.compact)
-                DatePicker("",selection: $time, displayedComponents: .hourAndMinute)
-                                .datePickerStyle(.compact)
+
+                    DatePicker("Date",selection: $date, displayedComponents: .date)
+                                    .datePickerStyle(.compact)
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+
+
+                                
                                
                         
                     
@@ -93,6 +97,11 @@ struct NewTaskView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                     }
+                    
+                    DatePicker("Time",selection: $time, displayedComponents: .hourAndMinute)
+                                    .datePickerStyle(.compact)
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
                     
                     HStack {
                         

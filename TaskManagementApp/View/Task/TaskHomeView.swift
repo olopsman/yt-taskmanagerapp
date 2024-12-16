@@ -77,7 +77,6 @@ struct TaskHomeView: View {
         })
         .sheet(isPresented: $createNewTask, content: {
             NewTaskView(taskDate: $currentDate)
-                .presentationDetents([.medium])
                 .interactiveDismissDisabled()
                 .presentationCornerRadius(30)
                
