@@ -21,6 +21,7 @@ struct NewTaskView: View {
     @State private var taskTime: Date = .init()
     @State private var date = Date()
     @State private var time = Date(timeIntervalSinceReferenceDate: (Date.timeIntervalSinceReferenceDate/300).rounded(.toNearestOrEven) * 300)
+    @State private var showTimeInput: Bool = false
 
     private let segmentControlTypes = SegmentControlType.allCases
     @Query private var routines: [Routine]
@@ -28,18 +29,6 @@ struct NewTaskView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 15) {
                 
-//                VStack(alignment: .leading, spacing: 8) {
-//                    HStack{
-//                        Text("When")
-//                            .font(.caption)
-//                            .foregroundStyle(.gray)
-//                        DatePicker("",selection: $taskDate, displayedComponents: .date)
-//                            .datePickerStyle(.compact)
-//                            .scaleEffect(0.9, anchor: .leading)
-//                            
-//                    }
-//
-//                }
                 
 
                     DatePicker("Date",selection: $date, displayedComponents: .date)
@@ -97,11 +86,27 @@ struct NewTaskView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                     }
-                    
-                    DatePicker("Time",selection: $time, displayedComponents: .hourAndMinute)
-                                    .datePickerStyle(.compact)
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
+                    HStack {
+                        Text("Time")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                        DatePicker("",selection: $time, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(.compact)
+                            .font(.caption)
+                            .foregroundStyle(.gray).isHidden(!showTimeInput)
+                        Button(action: {
+                            showTimeInput = true
+                        }) {
+                            Text("None")
+                        }.isHidden(showTimeInput, remove: true)
+                        
+                        
+                        Button(action: {
+                            showTimeInput = false
+                        }) {
+                            Text("X")
+                        }.isHidden(!showTimeInput)
+                    }
                     
                     HStack {
                         
@@ -157,15 +162,12 @@ struct NewTaskView: View {
                         let dateTime = calendar.date(byAdding: .hour, value: timeValue, to: midnight)!
                         let dateMin = calendar.date(byAdding: .minute, value: minValue, to: dateTime)!
                         
-                        
-//                        print("time \(calendar.component(.hour, from: timeComponent))")
-                        
-                   
 
+                        
 
                         
                         //MARK: Saving the task
-                        let task = Task(taskTitle: taskTitle, creationDate: dateMin, tint: taskColor, duration: Int(taskDuration))
+                        let task = Task(taskTitle: taskTitle, creationDate: showTimeInput ? dateMin: midnight, tint: taskColor, duration: Int(taskDuration))
                         do {
                             context.insert(task)
                             try context.save()
