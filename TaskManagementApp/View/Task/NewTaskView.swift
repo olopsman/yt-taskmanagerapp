@@ -142,9 +142,30 @@ struct NewTaskView: View {
                     Spacer(minLength: 0)
                     
                     Button(action: {
-                        print("save")
+                        let calendar = Calendar.current
+                        let midnight = calendar.startOfDay(for: taskDate)
+                        print("save \(midnight)")
+                        
+                        
+                        let timeValue = calendar.component(.hour, from: time)
+                        let minValue = calendar.component(.minute, from: time)
+
+                        print(timeValue);
+                        print(minValue);
+                        
+                        //create add the time
+                        let dateTime = calendar.date(byAdding: .hour, value: timeValue, to: midnight)!
+                        let dateMin = calendar.date(byAdding: .minute, value: minValue, to: dateTime)!
+                        
+                        
+//                        print("time \(calendar.component(.hour, from: timeComponent))")
+                        
+                   
+
+
+                        
                         //MARK: Saving the task
-                        let task = Task(taskTitle: taskTitle, creationDate: taskDate, tint: taskColor, duration: Int(taskDuration))
+                        let task = Task(taskTitle: taskTitle, creationDate: dateMin, tint: taskColor, duration: Int(taskDuration))
                         do {
                             context.insert(task)
                             try context.save()

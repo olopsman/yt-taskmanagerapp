@@ -12,7 +12,6 @@ struct TaskRowView: View {
     @Environment(\.modelContext) private var context
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-
             Text(task.creationDate.format("hh:mm a"))
                 .font(.caption)
                 .foregroundStyle(.black)
