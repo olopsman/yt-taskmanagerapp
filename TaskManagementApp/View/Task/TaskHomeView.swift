@@ -86,20 +86,25 @@ struct TaskHomeView: View {
     @ViewBuilder
     func HeaderView() -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            HStack(spacing: 5){
-                Text(currentDate.format("MMMM"))
-                    .foregroundStyle(.darkBlue)
-                Text(currentDate.format("YYYY"))
-                    .foregroundStyle(.gray)
+            HStack {
+                HStack(spacing: 5){
+                    Text(currentDate.format("MMMM"))
+                        .foregroundStyle(.darkBlue)
+                    Text(currentDate.format("YYYY"))
+                        .foregroundStyle(.gray)
 
+                }
+                .font(.title2)
+                DatePicker("", selection: $currentDate, displayedComponents: .date)
+                    .font(.caption)
             }
-            .font(.title.bold())
+
             
-            Text(currentDate.formatted(date: .complete, time: .omitted))
-                .font(.callout)
-                .fontWeight(.semibold)
-                .textScale(.secondary)
-                .foregroundStyle(.gray)
+//            Text(currentDate.formatted(date: .complete, time: .omitted))
+//                .font(.callout)
+//                .fontWeight(.semibold)
+//                .textScale(.secondary)
+//                .foregroundStyle(.gray)
             
             //MARK: Week Slider
             TabView(selection: $currentWeeekIndex) {

@@ -49,7 +49,7 @@ struct RoutineEditView: View {
                                     color: .black.opacity(0.25), radius: 2)),
                             in: .rect(cornerRadius: 10))
                     Button(action: {
-                        routine.tasks.append(Task(taskTitle: task, tint: "TaskColor1"))
+                        routine.tasks.append(Task(title: task, tint: "TaskColor1"))
                         task = ""
                         
                     }){
@@ -62,7 +62,7 @@ struct RoutineEditView: View {
                 List{
                     Section{
                         ForEach(routine.tasks) { tsk in
-                            NavigationLink(destination: Text("View")){
+                            NavigationLink(destination: RoutineTaskView(task: tsk)){
                                 Text("\(tsk.taskTitle)")
                             }
                                 

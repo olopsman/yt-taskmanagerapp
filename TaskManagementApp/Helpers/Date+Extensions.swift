@@ -10,6 +10,18 @@ import SwiftUI
 //MARK: Date extension need for building UI
 
 extension Date {
+    
+    //MARK: Display relative time
+    func formatRelative() -> String {
+        let relativeDateFormatter = DateFormatter()
+        relativeDateFormatter.timeStyle = .none
+        relativeDateFormatter.dateStyle = .medium
+        relativeDateFormatter.locale = Locale(identifier: "en_GB")
+        relativeDateFormatter.doesRelativeDateFormatting = true
+        
+        return relativeDateFormatter.string(from: self)
+    }
+    //MARK: use to display the time if scheduled
     func format(_ format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
@@ -88,3 +100,13 @@ extension Date {
        return date!
    }
 }
+
+//
+//extension Date {
+//    //MARK: Use to update current date
+//    static func updateHour(_ value: Int) -> Date {
+//        let calendar = Calendar.current
+//        return calendar.date(byAdding: .hour, value: value, to: .init()) ?? .init()
+//    }
+//}
+

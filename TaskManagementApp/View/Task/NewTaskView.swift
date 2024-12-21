@@ -28,23 +28,11 @@ struct NewTaskView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 15) {
-                
-                
-
                     DatePicker("Date",selection: $date, displayedComponents: .date)
                                     .datePickerStyle(.compact)
                                     .font(.caption)
                                     .foregroundStyle(.gray)
 
-
-                                
-                               
-                        
-                    
-               
-
-                
-                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Type")
                         .font(.caption)
@@ -167,7 +155,7 @@ struct NewTaskView: View {
 
                         
                         //MARK: Saving the task
-                        let task = Task(taskTitle: taskTitle, creationDate: showTimeInput ? dateMin: midnight, tint: taskColor, duration: Int(taskDuration))
+                        let task = Task(taskTitle: taskTitle, creationDate: showTimeInput ? dateMin: midnight, tint: taskColor, duration: Int(taskDuration), timeScheduled: showTimeInput)
                         do {
                             context.insert(task)
                             try context.save()

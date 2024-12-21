@@ -10,13 +10,16 @@ import SwiftUI
 struct TaskRowView: View {
     @Bindable var task: Task
     @Environment(\.modelContext) private var context
+    
+    
+    
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-            Text(task.creationDate.format("hh:mm a"))
+            Text(task.timeScheduled ? task.creationDate.format("hh:mm a") : task.creationDate.formatRelative())
                 .font(.caption)
                 .foregroundStyle(.black)
             VStackLayout(alignment: .leading, spacing: 8) {
-                Text(task.taskTitle)
+                Text(task.title)
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)
                 Text("Duration: \(task.duration) mins")
